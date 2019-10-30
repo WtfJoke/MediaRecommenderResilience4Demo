@@ -15,7 +15,11 @@ repositories {
 	mavenCentral()
 }
 
+extra["resilience4jVersion"] = "1.1.0"
+
 dependencies {
+	compile("io.github.resilience4j:resilience4j-spring-boot2:${project.extra["resilience4jVersion"]}")
+	compile("io.github.resilience4j:resilience4j-reactor:${project.extra["resilience4jVersion"]}")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
