@@ -15,6 +15,7 @@ class VideoGameRouter(private val gamesHandler: VideoGameHandler) {
             GET("/success", gamesHandler::success)
             GET("/fail", gamesHandler::fail)
             GET("/games", gamesHandler::list)
+            GET("/games/get", gamesHandler::get)
             POST("/games", gamesHandler::create)
         }
     }

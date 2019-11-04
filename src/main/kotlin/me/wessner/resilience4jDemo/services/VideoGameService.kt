@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.io.IOException
 import java.time.Duration
+import java.util.*
 import java.util.concurrent.TimeoutException
 
 
@@ -46,6 +47,12 @@ class VideoGameService(circuitBreakerRegistry: CircuitBreakerRegistry, val repos
 
     fun createFromMono(toInsert: Mono<VideoGame>): Mono<VideoGame> {
         return createFromMonoInternal(toInsert).transformDeferred(CircuitBreakerOperator.of(circuitBreaker))
+    }
+
+    fun getByName(titleOptional: Optional<String>): Mono<VideoGame> {
+        return titleOptional
+                .map { title -> repository.findByTitle(title) }
+                .orElseGet { Mono.empty() }
     }
 
     private fun createFromMonoInternal(toInsert: Mono<VideoGame>): Mono<VideoGame> {
