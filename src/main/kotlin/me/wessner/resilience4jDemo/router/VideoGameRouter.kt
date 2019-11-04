@@ -14,6 +14,7 @@ class VideoGameRouter(private val gamesHandler: VideoGameHandler) {
         (accept(APPLICATION_JSON) and "/videoGameBackend").nest {
             GET("/success", gamesHandler::success)
             GET("/fail", gamesHandler::fail)
+            GET("/games", gamesHandler::list)
             POST("/games", gamesHandler::create)
         }
     }

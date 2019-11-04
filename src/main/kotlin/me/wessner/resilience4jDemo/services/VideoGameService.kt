@@ -8,6 +8,7 @@ import io.github.resilience4j.reactor.circuitbreaker.operator.CircuitBreakerOper
 import me.wessner.resilience4jDemo.models.VideoGame
 import me.wessner.resilience4jDemo.repositories.VideoGameRepository
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.io.IOException
 import java.time.Duration
@@ -37,6 +38,10 @@ class VideoGameService(circuitBreakerRegistry: CircuitBreakerRegistry, val repos
 
     fun fail(): String {
         return CircuitBreaker.decorateSupplier(circuitBreaker, this::failInternal).get()
+    }
+
+    fun list(): Flux<VideoGame> {
+        return repository.findAll()
     }
 
     fun createFromMono(toInsert: Mono<VideoGame>): Mono<VideoGame> {

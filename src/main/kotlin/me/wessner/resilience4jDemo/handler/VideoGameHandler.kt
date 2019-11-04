@@ -21,6 +21,8 @@ class VideoGameHandler(val videoGameService: VideoGameService) {
 
     fun fail(request: ServerRequest) = ok().body(fromValue(videoGameService.fail()))
 
+    fun list(request: ServerRequest) = ok().body(fromPublisher(videoGameService.list(),  VideoGame::class.java))
+
     fun create(request: ServerRequest): Mono<ServerResponse> {
         val insertableGameMono = request.bodyToMono(VideoGame::class.java).map { p -> VideoGame(p) }
 
