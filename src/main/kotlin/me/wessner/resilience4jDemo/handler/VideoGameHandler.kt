@@ -3,7 +3,6 @@ package me.wessner.resilience4jDemo.handler
 import me.wessner.resilience4jDemo.models.VideoGame
 import me.wessner.resilience4jDemo.services.VideoGameService
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.BodyInserters.fromPublisher
 import org.springframework.web.reactive.function.BodyInserters.fromValue
@@ -27,7 +26,6 @@ class VideoGameHandler(val videoGameService: VideoGameService) {
         val insertableGameMono = request.bodyToMono(VideoGame::class.java).map { p -> VideoGame(p) }
 
         return status(HttpStatus.CREATED)
-                .contentType(APPLICATION_JSON)
                 .body(fromPublisher(videoGameService.createFromMono(insertableGameMono), VideoGame::class.java))
     }
 }
