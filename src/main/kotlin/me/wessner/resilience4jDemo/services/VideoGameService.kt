@@ -5,6 +5,7 @@ import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig.SlidingWindowType
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry
 import io.github.resilience4j.reactor.circuitbreaker.operator.CircuitBreakerOperator
+import io.vavr.control.Try
 import me.wessner.resilience4jDemo.models.VideoGame
 import me.wessner.resilience4jDemo.repositories.VideoGameRepository
 import org.springframework.stereotype.Service
@@ -18,6 +19,8 @@ import java.util.concurrent.TimeoutException
 
 @Service
 class VideoGameService(circuitBreakerRegistry: CircuitBreakerRegistry, val repository: VideoGameRepository) {
+
+    var failEverySecondCallCount = 0
 
     private val circuitBreakerConfig = CircuitBreakerConfig.custom()
             .failureRateThreshold(50f)
@@ -39,6 +42,11 @@ class VideoGameService(circuitBreakerRegistry: CircuitBreakerRegistry, val repos
 
     fun fail(): String {
         return CircuitBreaker.decorateSupplier(circuitBreaker, this::failInternal).get()
+    }
+
+    fun recover(): String {
+        return Try.ofSupplier { failEverySecondCall() }
+                .recover { throwable -> "Hello from Recovery: ${throwable.message}" }.get()
     }
 
     fun list(): Flux<VideoGame> {
@@ -65,6 +73,13 @@ class VideoGameService(circuitBreakerRegistry: CircuitBreakerRegistry, val repos
 
     private fun failInternal(): String {
         throw IOException("Failure while processing video game store")
+    }
+
+    private fun failEverySecondCall(): String {
+        if (failEverySecondCallCount++ % 2 == 1) {
+            failInternal()
+        }
+        return successInternal()
     }
 
 }
