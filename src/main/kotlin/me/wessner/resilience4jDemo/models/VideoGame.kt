@@ -6,5 +6,6 @@ import java.util.*
 
 @Document
 data class VideoGame(@Id var id: String, val title: String, val ageRestriction: Int){
-    constructor(existingGame: VideoGame) : this(UUID.randomUUID().toString(), existingGame.title, existingGame.ageRestriction)
+    constructor(existingGame: VideoGame) : this(existingGame.title, existingGame.ageRestriction)
+    constructor(title: String, ageRestriction: Int) : this(UUID.randomUUID().toString(), title, ageRestriction)
 }

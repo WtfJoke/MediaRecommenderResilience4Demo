@@ -21,6 +21,10 @@ import java.util.concurrent.TimeoutException
 class VideoGameService(circuitBreakerRegistry: CircuitBreakerRegistry, val repository: VideoGameRepository) {
 
     var failEverySecondCallCount = 0
+    val top3Games = Flux.just(
+            VideoGame("Fifa 20", 0),
+            VideoGame("The Legend Of Zelda: Link's Awakening", 0),
+            VideoGame("Borderlands 3", 18))
 
     private val circuitBreakerConfig = CircuitBreakerConfig.custom()
             .failureRateThreshold(50f)
@@ -44,9 +48,9 @@ class VideoGameService(circuitBreakerRegistry: CircuitBreakerRegistry, val repos
         return CircuitBreaker.decorateSupplier(circuitBreaker, this::failInternal).get()
     }
 
-    fun recover(): String {
-        return Try.ofSupplier { failEverySecondCall() }
-                .recover { throwable -> "Hello from Recovery: ${throwable.message}" }.get()
+    fun recover(): Flux<VideoGame> {
+        return Try.ofSupplier { Flux.just(VideoGame(failEverySecondCall(), 0)) }
+                .recover { throwable -> top3Games }.get()
     }
 
     fun list(): Flux<VideoGame> {
