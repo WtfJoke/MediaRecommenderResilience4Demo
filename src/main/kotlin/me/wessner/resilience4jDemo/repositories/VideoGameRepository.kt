@@ -7,6 +7,6 @@ import reactor.core.publisher.Mono
 
 
 @Repository
-interface VideoGameRepository : ReactiveMongoRepository<VideoGame, Long> {
+interface VideoGameRepository : ReactiveMongoRepository<VideoGame, String> {
     fun findByTitle(title: String): Mono<VideoGame>
 }
