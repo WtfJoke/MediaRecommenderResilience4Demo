@@ -1,4 +1,4 @@
-package me.wessner.resilience4jDemo.models
+package me.wessner.mediarecommender.models
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document

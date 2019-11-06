@@ -1,6 +1,6 @@
-# Resilient Media Recommender Demo
+# Media Recommender Resilience4j Demo
 
-Testing [resilience4j](https://resilience4j.readme.io/) with reactive [Spring (Webflux)](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) in Kotlin
+Demo of [resilience4j](https://resilience4j.readme.io/) with reactive [Spring (Webflux)](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) in Kotlin
 
 ## Setup
 

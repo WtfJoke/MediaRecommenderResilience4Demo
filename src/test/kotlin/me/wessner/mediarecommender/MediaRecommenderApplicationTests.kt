@@ -1,10 +1,10 @@
-package me.wessner.resilience4jDemo
+package me.wessner.mediarecommender
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class Resilience4jDemoApplicationTests {
+class MediaRecommenderApplicationTests {
 
 	@Test
 	fun contextLoads() {

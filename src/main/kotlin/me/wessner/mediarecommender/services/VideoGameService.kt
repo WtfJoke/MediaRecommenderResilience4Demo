@@ -1,4 +1,4 @@
-package me.wessner.resilience4jDemo.services
+package me.wessner.mediarecommender.services
 
 import io.github.resilience4j.circuitbreaker.CircuitBreaker
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig
@@ -6,8 +6,8 @@ import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig.SlidingWindowT
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry
 import io.github.resilience4j.reactor.circuitbreaker.operator.CircuitBreakerOperator
 import io.vavr.control.Try
-import me.wessner.resilience4jDemo.models.VideoGame
-import me.wessner.resilience4jDemo.repositories.VideoGameRepository
+import me.wessner.mediarecommender.models.VideoGame
+import me.wessner.mediarecommender.repositories.VideoGameRepository
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono

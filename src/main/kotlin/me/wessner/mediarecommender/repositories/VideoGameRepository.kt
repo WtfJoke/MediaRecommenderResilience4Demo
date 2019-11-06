@@ -1,6 +1,6 @@
-package me.wessner.resilience4jDemo.repositories
+package me.wessner.mediarecommender.repositories
 
-import me.wessner.resilience4jDemo.models.VideoGame
+import me.wessner.mediarecommender.models.VideoGame
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Mono

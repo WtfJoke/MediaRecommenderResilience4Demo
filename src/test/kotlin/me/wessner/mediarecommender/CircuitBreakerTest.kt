@@ -1,4 +1,4 @@
-package me.wessner.resilience4jDemo
+package me.wessner.mediarecommender
 
 import io.github.resilience4j.circuitbreaker.CircuitBreaker.State
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry

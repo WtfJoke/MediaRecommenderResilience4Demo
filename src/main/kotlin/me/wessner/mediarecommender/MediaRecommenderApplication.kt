@@ -1,11 +1,11 @@
-package me.wessner.resilience4jDemo
+package me.wessner.mediarecommender
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class Resilience4jDemoApplication
+class MediaRecommenderApplication
 
 fun main(args: Array<String>) {
-	runApplication<Resilience4jDemoApplication>(*args)
+	runApplication<MediaRecommenderApplication>(*args)
 }

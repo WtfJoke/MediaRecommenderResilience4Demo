@@ -1,7 +1,7 @@
-package me.wessner.resilience4jDemo.handler
+package me.wessner.mediarecommender.handler
 
-import me.wessner.resilience4jDemo.models.VideoGame
-import me.wessner.resilience4jDemo.services.VideoGameService
+import me.wessner.mediarecommender.models.VideoGame
+import me.wessner.mediarecommender.services.VideoGameService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.BodyInserters.fromPublisher

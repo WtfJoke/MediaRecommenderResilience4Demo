@@ -1,6 +1,6 @@
-package me.wessner.resilience4jDemo.router
+package me.wessner.mediarecommender.router
 
-import me.wessner.resilience4jDemo.handler.VideoGameHandler
+import me.wessner.mediarecommender.handler.VideoGameHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType.APPLICATION_JSON
