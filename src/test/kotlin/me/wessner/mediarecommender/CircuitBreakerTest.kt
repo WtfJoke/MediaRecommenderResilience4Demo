@@ -16,15 +16,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext
-class CircuitBreakerTest {
+class CircuitBreakerTest(@Autowired val registry: CircuitBreakerRegistry, @Autowired val restTemplate: TestRestTemplate) {
 
     private val GAME_BACKEND = "videoGameBackend"
-
-    @Autowired
-    private lateinit var registry: CircuitBreakerRegistry
-
-    @Autowired
-    private lateinit var restTemplate: TestRestTemplate
 
     @Test
     @Throws(InterruptedException::class)
