@@ -10,13 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext
 class CircuitBreakerTest {
 
-    private val BACKEND = "videoGameBackend"
+    private val GAME_BACKEND = "videoGameBackend"
 
     @Autowired
     private lateinit var registry: CircuitBreakerRegistry
@@ -26,19 +28,36 @@ class CircuitBreakerTest {
 
     @Test
     @Throws(InterruptedException::class)
-    fun shouldOpenAndCloseBackendACircuitBreaker() {
+    fun shouldOpenAndCloseVideoGameBackendCircuitBreaker() {
         // When
-        Stream.rangeClosed(1, 10).forEach { _ -> produceFailure(BACKEND) }
+        Stream.rangeClosed(1, 10).forEach { _ -> produceFailure(GAME_BACKEND) }
 
         // Then
-        checkHealthStatus(BACKEND, State.OPEN)
+        checkHealthStatus(GAME_BACKEND, State.OPEN)
 
         Thread.sleep(1000) // waitDurationInOpenState
 
         // When
-        Stream.rangeClosed(1, 3).forEach { _ -> produceSuccess(BACKEND) }
+        Stream.rangeClosed(1, 3).forEach { _ -> produceSuccess(GAME_BACKEND) }
 
-        checkHealthStatus(BACKEND, State.CLOSED)
+        checkHealthStatus(GAME_BACKEND, State.CLOSED)
+    }
+
+    @Test
+    @Throws(InterruptedException::class)
+    fun shouldHalfOpenAndCloseVideoGameBackendCircuitBreaker() {
+        Stream.rangeClosed(1, 10).forEach { _ -> produceFailure(GAME_BACKEND) }
+
+        Thread.sleep(1000)  // waitDurationInOpenState
+
+        produceSuccess(GAME_BACKEND)
+        checkHealthStatus(GAME_BACKEND, State.HALF_OPEN)
+
+        produceSuccess(GAME_BACKEND)
+        checkHealthStatus(GAME_BACKEND, State.HALF_OPEN)
+
+        produceSuccess(GAME_BACKEND)
+        checkHealthStatus(GAME_BACKEND, State.CLOSED)
     }
 
     private fun checkHealthStatus(circuitBreakerName: String, state: State) {
