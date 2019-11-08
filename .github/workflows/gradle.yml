@@ -1,0 +1,22 @@
+name: Kotlin CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on:  ubuntu-latest
+    strategy:
+      matrix:
+        java: [ '1.8', '11.x', '13.x']
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    name: Java ${{ matrix.java }} on ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
