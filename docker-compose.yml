@@ -7,7 +7,19 @@ services:
       - mongodata:/data/db
     ports:
       - "27017:27017"
-
+  prometheus:
+    image: prom/prometheus
+    network_mode: "host"
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
+#  springapp:
+#    build: .
+#    ports:
+#      - "8080:8080"
+#      - "5005:5005" # for remote debugging
 volumes:
   mongodata:
 #    driver: local-persist

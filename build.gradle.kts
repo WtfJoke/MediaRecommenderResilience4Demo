@@ -26,6 +26,7 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	compile("io.github.resilience4j:resilience4j-spring-boot2:${project.extra["resilience4jVersion"]}")
 	compile("io.github.resilience4j:resilience4j-reactor:${project.extra["resilience4jVersion"]}")
+	implementation("io.micrometer:micrometer-registry-prometheus")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
