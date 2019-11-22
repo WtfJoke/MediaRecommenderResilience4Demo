@@ -6,9 +6,6 @@ stages:
 variables:
   MONGO_HOST: 'mongo'
 
-before_script:
-  - chmod +x ./gradlew
-
 cache:
   paths:
     - .gradle/wrapper
