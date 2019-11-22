@@ -28,7 +28,6 @@ class RecommendationService(val movieService: MovieService, val videoGameService
                             .flatMap { i -> gamesFlux.collectList().map { games -> games[i] } }
                             .collectList()
                 }
-        //      .flatMap { size -> Flux.range(0, Random().nextInt(size.toInt())).flatMap { Flux.from(gamesFlux) }.collectList() }
 
 
         return Mono.zip(recommendedMovies, recommendedGames).map { movieGameTuple -> Recommendation(movieGameTuple.t1, movieGameTuple.t2) }
